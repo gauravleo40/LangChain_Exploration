@@ -1,8 +1,6 @@
 import streamlit as st
-from chain import chain
-
-
-# domain = "Vegetables"
+# from chain import chain, chat
+from chain import chat
 
 
 
@@ -10,26 +8,39 @@ from chain import chain
 #              Streamlit App FrontEnd
 # ===================================================
 
-st.title("Start-up Name and Tagline Generator")
+st.title("Hospital Chatbot : Consult your doctor")
 st.divider()
-domain = st.text_input("Enter the domain of your start-up", placeholder="E.g. Restaurant, Fitness, etc.")
-name_provided = st.button("Generate names")
-st.header(f"Domain Provided : {domain}")
-st.divider()
-response = chain.invoke({'domain':domain})
+# domain = st.text_input("Enter the domain of your start-up", placeholder="E.g. Restaurant, Fitness, etc.")
+# begin_chat = st.button("begin_chat")
+# st.header(f"Domain Provided : {domain}")
+# st.divider()
 
-if name_provided:
-    markdown_text = ""
-    for b in response.allinfo:
-        markdown_text += f"""
-                            ### {b.business_name}
+# response = chain.invoke({'domain':domain})
 
-                            > {b.tagline}
+st.header("Chatbot is ready. Type 'q' / 'exit' / 'quit' to exit the Chatbot\n")
 
-                            ---
-                        """
-        
-    st.markdown(markdown_text)
+
+user_input = st.text_input("Ask your query:")
+
+if user_input:
+
+    if user_input.lower() in ["exit", "quit", "q"]:
+        st.write("==== Exiting the Chatbot. Goodbye! ====")
+
+    else:
+        doc_response = chat(user_input)
+        st.write(doc_response)
+
+
+# while True:
+#     user_input = st.text_input("Ask your query: ")
+#     if user_input.lower() in ["exit", "quit", "q"]:
+#         st.write(" ==== Exiting the Chatbot. Goodbye! ==== ")
+#         break
+#     else:
+#         doc_response = chat(user_input)
+#         st.write(doc_response)
+
 
 
 # st.markdown('\n'.join([f"- {i.business_name}" for i in response.allinfo]))
