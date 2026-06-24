@@ -16,7 +16,7 @@ st.header("Chatbot is ready. Type 'q' / 'exit' / 'quit' to exit the Chatbot\n")
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-user_input = st.text_input("Ask your query:")
+user_input = st.chat_input("Ask your query:")
 
 if user_input:
 
@@ -27,7 +27,7 @@ if user_input:
         st.session_state.messages.append({'role':'user','content':user_input})
         doc_response = chat(user_input)
         st.session_state.messages.append({'role':'assistant','content':doc_response})
-        st.write(doc_response)
+        # st.write(doc_response)
 
 for i in st.session_state.messages :
     if i['role'] == 'user':
