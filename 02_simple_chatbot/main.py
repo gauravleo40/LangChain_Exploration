@@ -13,6 +13,11 @@ st.divider()
 
 st.header("Chatbot is ready. Type 'q' / 'exit' / 'quit' to exit the Chatbot\n")
 
+specialization = st.selectbox("Select the Medical Specialty you want to consult with:",
+    ("Cardiology", "Neurology", "Orthopedics", "Dermatology", "Pediatrics", "Psychiatry"),
+    index=None,
+    placeholder="Select Department")
+
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
@@ -25,7 +30,7 @@ if user_input:
 
     else:
         st.session_state.messages.append({'role':'user','content':user_input})
-        doc_response = chat(user_input)
+        doc_response = chat(user_input,specialization)
         st.session_state.messages.append({'role':'assistant','content':doc_response})
         # st.write(doc_response)
 
